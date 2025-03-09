@@ -1,0 +1,1 @@
+export 'src/animated_grow_controller.dart' show AnimatedGrow;
