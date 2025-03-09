@@ -1,6 +1,6 @@
-import 'package:animated_grow/src/animated_grow_data.dart';
 import 'package:flutter/material.dart';
 
+import 'animated_grow_data.dart';
 import 'animated_grow_direction.dart';
 import 'animated_grow_horizontal.dart';
 import 'animated_grow_vertical.dart';

@@ -1,5 +1,4 @@
-import 'package:animated_grow/src/animated_grow_direction.dart';
-import 'package:flutter/material.dart';
+import 'animated_grow_direction.dart';
 
 class AnimatedGrowData {
   AnimatedGrowData({
