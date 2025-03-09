@@ -8,12 +8,15 @@ import 'animated_grow_vertical.dart';
 class AnimatedGrowBase extends StatelessWidget {
   const AnimatedGrowBase({
     super.key,
-    this.duration,
+    this.curve = Curves.easeInOut,
+    this.duration = const Duration(milliseconds: 700),
     this.direction = GrowDirection.leftToRight,
     required this.child,
   });
 
-  final Duration? duration;
+  final Curve curve;
+
+  final Duration duration;
 
   /// Default, [GrowDirection.leftToRight]
   ///
@@ -23,10 +26,11 @@ class AnimatedGrowBase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final AnimatedGrowData data = AnimatedGrowData(
-      duration: duration ?? Duration(milliseconds: 700),
+      curve: curve,
+      duration: duration,
       direction: direction,
+      child: child,
     );
 
     return data.isHorizontal
