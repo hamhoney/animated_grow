@@ -19,8 +19,9 @@ class AnimatedGrowHorizontal extends StatefulWidget {
 
 class _AnimatedGrowHorizontalState extends State<AnimatedGrowHorizontal> with SingleTickerProviderStateMixin {
   late final Alignment alignment;
+  late final double axisAlignment = 0.0;
 
-  AnimationController? controller;
+  late final AnimationController controller;
   late final Animation<double> sizeAnimation;
 
   @override
@@ -39,28 +40,43 @@ class _AnimatedGrowHorizontalState extends State<AnimatedGrowHorizontal> with Si
       reverseDuration: widget.data.duration,
     );
 
-    sizeAnimation = Tween<double>(begin: 0, end: null).animate(
-      CurvedAnimation(parent: controller!, curve: widget.data.curve)
+    sizeAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: controller, curve: widget.data.curve)
     );
+
+    widget.data.controller?.call(controller);
+    sizeAnimation.addListener(animationEventListener);
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-
-
     return AnimatedBuilder(
       animation: sizeAnimation,
       builder: (context, child) {
-        return AnimatedSize(
-          duration: widget.data.duration,
-          alignment: alignment,
-          child: SizedBox(
-            width: sizeAnimation.value,
+        return Flex(
+          direction: Axis.horizontal,
+          children: [SizeTransition(
+            sizeFactor: sizeAnimation,
+            axis: Axis.horizontal,
+            axisAlignment: -1,
             child: child,
-          ),
+          )],
         );
       },
       child: widget.data.child,
     );
+  }
+
+  void animationEventListener() {
+    print('animationEventListener... ${sizeAnimation.value}');
+    setState(() {
+
+    });
   }
 }

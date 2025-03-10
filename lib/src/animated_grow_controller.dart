@@ -13,6 +13,7 @@ import 'animated_grow_base.dart';
 class AnimatedGrow extends AnimatedGrowBase {
   const AnimatedGrow({
     super.key,
+    super.controller,
     super.curve,
     super.duration,
     super.direction,

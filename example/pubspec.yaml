@@ -13,3 +13,6 @@ dependencies:
 
   animated_grow:
     path: ../
+
+flutter:
+  uses-material-design: true
