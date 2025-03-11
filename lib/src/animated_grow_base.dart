@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'animated_grow_data.dart';
 import 'animated_grow_direction.dart';
-import 'animated_grow_horizontal.dart';
-import 'animated_grow_vertical.dart';
+import 'animated_grow_implement.dart';
 
-class AnimatedGrowBase extends StatelessWidget {
+abstract class AnimatedGrowBase extends StatelessWidget {
   const AnimatedGrowBase({
     super.key,
     this.controller,
@@ -13,6 +12,7 @@ class AnimatedGrowBase extends StatelessWidget {
     this.duration = const Duration(milliseconds: 700),
     this.reverseDuration,
     this.direction = GrowDirection.leftToRight,
+    this.collapsed = true,
     required this.child,
   });
 
@@ -30,6 +30,16 @@ class AnimatedGrowBase extends StatelessWidget {
   ///
   final GrowDirection direction;
 
+  /// The widget is collapsed but still taking up space in the layout.
+  ///
+  /// if true and not visible but still taking space.
+  ///
+  /// if false and not visible never still taking space.
+  ///
+  ///
+  /// default value is true
+  final bool collapsed;
+
   final Widget child;
 
   @override
@@ -40,11 +50,10 @@ class AnimatedGrowBase extends StatelessWidget {
       duration: duration,
       reverseDuration: reverseDuration ?? duration,
       direction: direction,
+      isCollapsed: collapsed,
       child: child,
     );
 
-    return data.isHorizontal
-        ? AnimatedGrowHorizontal(data: data,)
-        : AnimatedGrowVertical();
+    return AnimatedGrowImpl(data: data,);
   }
 }

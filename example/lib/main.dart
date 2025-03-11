@@ -51,21 +51,29 @@ class _MyHomePageState extends State<MyHomePage> {
               Text('test Context Area'),
               AnimatedGrow(
                 controller: (gc) => controller = gc,
-                direction: GrowDirection.rightToLeft,
+                direction: GrowDirection.bottomToTop,
+                collapsed: true,
+                duration: const Duration(seconds: 1),
+                reverseDuration: const Duration(milliseconds: 250),
                 child: Container(
                   color: Colors.red,
                   width: 150.0,
                   height: 60.0,
                   child: Center(child: Text('What is name?')),
                 ),
-              )
+              ),
+              Text('test Text2')
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          controller?.forward();
+          if (controller != null && controller!.isCompleted) {
+            controller?.reverse();
+          } else {
+            controller?.forward();
+          }
         },
         child: const Icon(Icons.play_circle_outline),
       ), // This trailing comma makes auto-formatting nicer for build methods.

@@ -16,7 +16,9 @@ class AnimatedGrow extends AnimatedGrowBase {
     super.controller,
     super.curve,
     super.duration,
+    super.reverseDuration,
     super.direction,
+    super.collapsed,
     required super.child,
   });
 }

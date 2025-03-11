@@ -9,6 +9,7 @@ class AnimatedGrowData {
     required this.duration,
     required this.reverseDuration,
     required this.direction,
+    required this.isCollapsed,
     required this.child,
   }) {
     isHorizontal = direction == GrowDirection.leftToRight || direction == GrowDirection.rightToLeft;
@@ -20,5 +21,6 @@ class AnimatedGrowData {
   Duration reverseDuration;
   GrowDirection direction;
   late bool isHorizontal;
+  bool isCollapsed;
   final Widget child;
 }
