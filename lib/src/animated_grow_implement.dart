@@ -17,6 +17,7 @@ class AnimatedGrowImpl extends StatefulWidget {
 class _AnimatedGrowHorizontalState extends State<AnimatedGrowImpl>
     with SingleTickerProviderStateMixin {
   late final AlignmentDirectional alignment;
+  @Deprecated('Not used')
   late final double axisAlignment = 0.0;
 
   late final AnimationController controller;
@@ -46,7 +47,7 @@ class _AnimatedGrowHorizontalState extends State<AnimatedGrowImpl>
                   widget.data.direction == GrowDirection.leftToRight ? -1 : 1;
               // GrowIn
               sizeAnimation = Tween<double>(
-                begin: growDirect * renderWidth,
+                begin: growDirect * renderWidth + widget.data.from,
                 end: 0.0,
               ).animate(
                 CurvedAnimation(parent: controller, curve: widget.data.curve),
@@ -56,7 +57,7 @@ class _AnimatedGrowHorizontalState extends State<AnimatedGrowImpl>
                   widget.data.direction == GrowDirection.leftToRight ? 1 : -1;
               // GrowOut
               sizeAnimation = Tween<double>(
-                begin: 0.0,
+                begin: widget.data.from,
                 end: growDirect * renderWidth,
               ).animate(
                 CurvedAnimation(parent: controller, curve: widget.data.curve),
@@ -69,7 +70,7 @@ class _AnimatedGrowHorizontalState extends State<AnimatedGrowImpl>
               final int growDirection =
                   widget.data.direction == GrowDirection.bottomToTop ? 1 : -1;
               sizeAnimation = Tween<double>(
-                begin: growDirection * renderHeight,
+                begin: growDirection * renderHeight + widget.data.from,
                 end: 0.0,
               ).animate(
                 CurvedAnimation(parent: controller, curve: widget.data.curve),
@@ -79,12 +80,20 @@ class _AnimatedGrowHorizontalState extends State<AnimatedGrowImpl>
               final int growDirection =
                   widget.data.direction == GrowDirection.bottomToTop ? -1 : 1;
               sizeAnimation = Tween<double>(
-                begin: 0.0,
+                begin: widget.data.from,
                 end: growDirection * renderHeight,
               ).animate(
                 CurvedAnimation(parent: controller, curve: widget.data.curve),
               );
             }
+          }
+        });
+      }
+
+      if (widget.data.isAutoStart) {
+        Future.delayed(widget.data.delay, () {
+          if (controller.isDismissed) {
+            controller.forward();
           }
         });
       }

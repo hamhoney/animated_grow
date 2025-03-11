@@ -9,11 +9,14 @@ abstract class AnimatedGrowBase extends StatelessWidget {
     super.key,
     this.controller,
     required this.isGrowIn,
+    this.autoStart = true,
+    this.delay = Duration.zero,
     this.curve = Curves.easeInOut,
-    this.duration = const Duration(milliseconds: 700),
+    this.duration = const Duration(milliseconds: 850),
     this.reverseDuration,
     required this.direction,
     this.collapsed = true,
+    this.from = 0.0,
     required this.child,
   });
 
@@ -23,15 +26,27 @@ abstract class AnimatedGrowBase extends StatelessWidget {
 
   final bool isGrowIn;
 
+  /// Default, [GrowDirection.leftToRight]
+  ///
+  final GrowDirection direction;
+
+  /// Animate autoStart control
+  ///
+  /// default value is true
+  final bool autoStart;
+
+  /// delayed for [autoStart]
+  ///
+  /// [delay] begins only once at the widget building.
+  ///
+  /// default value is [Duration.zero]
+  final Duration delay;
+
   final Curve curve;
 
   final Duration duration;
 
   final Duration? reverseDuration;
-
-  /// Default, [GrowDirection.leftToRight]
-  ///
-  final GrowDirection direction;
 
   /// The widget is collapsed but still taking up space in the layout.
   ///
@@ -43,6 +58,10 @@ abstract class AnimatedGrowBase extends StatelessWidget {
   /// default value is true
   final bool collapsed;
 
+  /// measure detail begin position.
+  ///
+  final double from;
+
   final Widget child;
 
   @override
@@ -50,11 +69,14 @@ abstract class AnimatedGrowBase extends StatelessWidget {
     final AnimatedGrowData data = AnimatedGrowData(
       controller: controller,
       isGrowIn: isGrowIn,
+      isAutoStart: autoStart,
+      delay: delay,
       curve: curve,
       duration: duration,
       reverseDuration: reverseDuration ?? duration,
       direction: direction,
       isCollapsed: collapsed,
+      from: from,
       child: child,
     );
 

@@ -6,11 +6,14 @@ class AnimatedGrowData {
   AnimatedGrowData({
     required this.controller,
     required this.isGrowIn,
+    required this.isAutoStart,
+    required this.delay,
     required this.curve,
     required this.duration,
     required this.reverseDuration,
     required this.direction,
     required this.isCollapsed,
+    required this.from,
     required this.child,
   }) {
     isHorizontal =
@@ -20,6 +23,10 @@ class AnimatedGrowData {
 
   late bool isHorizontal;
   bool isGrowIn;
+  bool isAutoStart;
+  Duration delay;
+
+  double from;
 
   final Function(AnimationController gc)? controller;
   Curve curve;

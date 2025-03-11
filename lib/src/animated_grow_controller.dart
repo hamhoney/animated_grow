@@ -14,11 +14,14 @@ class GrowIn extends AnimatedGrowBase {
   const GrowIn({
     super.key,
     super.controller,
-    super.curve,
+    required super.direction,
+    super.autoStart,
+    super.delay,
     super.duration,
     super.reverseDuration,
-    required super.direction,
+    super.curve,
     super.collapsed,
+    super.from,
     required super.child,
   }) : super(isGrowIn: true);
 }
@@ -27,11 +30,14 @@ class GrowOut extends AnimatedGrowBase {
   const GrowOut({
     super.key,
     super.controller,
-    super.curve,
+    required super.direction,
+    super.autoStart,
+    super.delay,
     super.duration,
     super.reverseDuration,
-    required super.direction,
+    super.curve,
     super.collapsed,
+    super.from,
     required super.child,
   }) : super(isGrowIn: false);
 }

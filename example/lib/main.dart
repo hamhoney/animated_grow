@@ -49,18 +49,20 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             children: [
               Text('test Context Area'),
-              GrowOut(
+              GrowIn(
                 controller: (gc) => controller = gc,
                 direction: GrowDirection.bottomToTop,
+                delay: Duration(seconds:3),
                 collapsed: false,
                 duration: const Duration(seconds: 1),
                 reverseDuration: const Duration(milliseconds: 250),
-                child: Container(
-                  color: Colors.red,
-                  width: 150.0,
-                  height: 60.0,
-                  child: Center(child: Text('What is name?')),
-                ),
+                from: -20,
+                child: ColorBox(color: Colors.red),
+              ),
+              GrowIn(
+                direction: GrowDirection.leftToRight,
+                collapsed: false,
+                child: ColorBox(color: Colors.yellow),
               ),
               Text('test Text2')
             ],
@@ -69,14 +71,33 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          print('animation status:${controller!.status}');
+          controller?.reset();
           if (controller != null && controller!.isCompleted) {
             controller?.reverse();
           } else {
             controller?.forward();
           }
+          print('animation status:${controller!.status}');
         },
         child: const Icon(Icons.play_circle_outline),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class ColorBox extends StatelessWidget {
+  const ColorBox({super.key, required this.color});
+
+  final Color color;
+  
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: color,
+      width: 150.0,
+      height: 50.0,
+      child: Center(child: Text('Test Widget')),
     );
   }
 }
