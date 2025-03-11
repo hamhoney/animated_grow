@@ -18,19 +18,38 @@ class AnimatedGrowHorizontal extends StatefulWidget {
 }
 
 class _AnimatedGrowHorizontalState extends State<AnimatedGrowHorizontal> with SingleTickerProviderStateMixin {
-  late final Alignment alignment;
+  late final AlignmentDirectional alignment;
   late final double axisAlignment = 0.0;
 
   late final AnimationController controller;
-  late final Animation<double> sizeAnimation;
+  late Animation<double> sizeAnimation;
+
+  // double? width = 0.0;
+
+  final childKey = GlobalKey();
 
   @override
   void initState() {
     super.initState();
 
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      final renderBox = childKey.currentContext?.findRenderObject() as RenderBox?;
+      if (renderBox != null) {
+        final renderSize = renderBox.size;
+        final renderWidth = renderSize.width;
+        final renderHeight = renderSize.height;
+
+        setState(() {
+          sizeAnimation = Tween<double>(begin: renderWidth, end: 0.0).animate(
+              CurvedAnimation(parent: controller, curve: widget.data.curve)
+          );
+        });
+      }
+    },);
+
     alignment = switch (widget.data.direction) {
-      GrowDirection.leftToRight => Alignment.centerLeft,
-      GrowDirection.rightToLeft => Alignment.centerRight,
+      GrowDirection.leftToRight => AlignmentDirectional.centerEnd,
+      GrowDirection.rightToLeft => AlignmentDirectional.centerStart,
       _ => throw UnimplementedError(),
     };
 
@@ -40,7 +59,7 @@ class _AnimatedGrowHorizontalState extends State<AnimatedGrowHorizontal> with Si
       reverseDuration: widget.data.duration,
     );
 
-    sizeAnimation = Tween<double>(begin: 0, end: 1).animate(
+    sizeAnimation = Tween<double>(begin: 0.0, end: 0.0).animate(
       CurvedAnimation(parent: controller, curve: widget.data.curve)
     );
 
@@ -56,27 +75,31 @@ class _AnimatedGrowHorizontalState extends State<AnimatedGrowHorizontal> with Si
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: sizeAnimation,
-      builder: (context, child) {
-        return Flex(
-          direction: Axis.horizontal,
-          children: [SizeTransition(
-            sizeFactor: sizeAnimation,
-            axis: Axis.horizontal,
-            axisAlignment: -1,
+    return ClipRect(
+      child: AnimatedBuilder(
+        animation: sizeAnimation,
+        builder: (context, child) {
+          return Transform.translate(
+            offset: Offset(sizeAnimation.value, 0.0),
             child: child,
-          )],
-        );
-      },
-      child: widget.data.child,
+          );
+        },
+        child: SizedBox(
+          key: childKey,
+          child: widget.data.child
+        ),
+      ),
     );
   }
 
   void animationEventListener() {
-    print('animationEventListener... ${sizeAnimation.value}');
-    setState(() {
-
-    });
+    print('animationEventListener... ${sizeAnimation.value}, isForwardOrCompleted:${sizeAnimation.isForwardOrCompleted}');
+    // if (sizeAnimation.isForwardOrCompleted && width == null) {
+    //
+    // } else {
+    //   setState(() {
+    //     width = null;
+    //   });
+    // }
   }
 }

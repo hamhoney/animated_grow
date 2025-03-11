@@ -27,12 +27,15 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   AnimationController? controller;
+
+  double testWidth = 50.0;
 
   @override
   Widget build(BuildContext context) {
@@ -43,22 +46,20 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: SafeArea(
         child: Center(
-          child: Container(
-            color: Colors.yellow.withAlpha(50),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text('You have pushed the button this many times:'),
-                AnimatedGrow(
-                  controller: (gc) => controller = gc,
-                  child: Container(
-                    color: Colors.red,
-                    width: 200,
-                    height: 60,
-                  ),
-                )
-              ],
-            ),
+          child: Column(
+            children: [
+              Text('test Context Area'),
+              AnimatedGrow(
+                controller: (gc) => controller = gc,
+                direction: GrowDirection.rightToLeft,
+                child: Container(
+                  color: Colors.red,
+                  width: 150.0,
+                  height: 60.0,
+                  child: Center(child: Text('What is name?')),
+                ),
+              )
+            ],
           ),
         ),
       ),
