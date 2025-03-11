@@ -5,6 +5,7 @@ import 'animated_grow_direction.dart';
 class AnimatedGrowData {
   AnimatedGrowData({
     required this.controller,
+    required this.isGrowIn,
     required this.curve,
     required this.duration,
     required this.reverseDuration,
@@ -12,15 +13,19 @@ class AnimatedGrowData {
     required this.isCollapsed,
     required this.child,
   }) {
-    isHorizontal = direction == GrowDirection.leftToRight || direction == GrowDirection.rightToLeft;
+    isHorizontal =
+        direction == GrowDirection.leftToRight ||
+        direction == GrowDirection.rightToLeft;
   }
+
+  late bool isHorizontal;
+  bool isGrowIn;
 
   final Function(AnimationController gc)? controller;
   Curve curve;
   Duration duration;
   Duration reverseDuration;
   GrowDirection direction;
-  late bool isHorizontal;
   bool isCollapsed;
   final Widget child;
 }

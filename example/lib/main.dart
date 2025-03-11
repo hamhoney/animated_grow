@@ -49,10 +49,10 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             children: [
               Text('test Context Area'),
-              AnimatedGrow(
+              GrowOut(
                 controller: (gc) => controller = gc,
                 direction: GrowDirection.bottomToTop,
-                collapsed: true,
+                collapsed: false,
                 duration: const Duration(seconds: 1),
                 reverseDuration: const Duration(milliseconds: 250),
                 child: Container(

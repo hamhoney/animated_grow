@@ -1,6 +1,1 @@
-enum GrowDirection {
-  leftToRight,
-  rightToLeft,
-  bottomToTop,
-  topToBottom,
-}
+enum GrowDirection { leftToRight, rightToLeft, bottomToTop, topToBottom }

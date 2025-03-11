@@ -10,15 +10,28 @@ import 'animated_grow_base.dart';
 /// [reverseDuration]
 /// [manualTrigger]
 /// [child]
-class AnimatedGrow extends AnimatedGrowBase {
-  const AnimatedGrow({
+class GrowIn extends AnimatedGrowBase {
+  const GrowIn({
     super.key,
     super.controller,
     super.curve,
     super.duration,
     super.reverseDuration,
-    super.direction,
+    required super.direction,
     super.collapsed,
     required super.child,
-  });
+  }) : super(isGrowIn: true);
+}
+
+class GrowOut extends AnimatedGrowBase {
+  const GrowOut({
+    super.key,
+    super.controller,
+    super.curve,
+    super.duration,
+    super.reverseDuration,
+    required super.direction,
+    super.collapsed,
+    required super.child,
+  }) : super(isGrowIn: false);
 }

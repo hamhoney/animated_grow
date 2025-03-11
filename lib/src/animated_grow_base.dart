@@ -8,10 +8,11 @@ abstract class AnimatedGrowBase extends StatelessWidget {
   const AnimatedGrowBase({
     super.key,
     this.controller,
+    required this.isGrowIn,
     this.curve = Curves.easeInOut,
     this.duration = const Duration(milliseconds: 700),
     this.reverseDuration,
-    this.direction = GrowDirection.leftToRight,
+    required this.direction,
     this.collapsed = true,
     required this.child,
   });
@@ -19,6 +20,8 @@ abstract class AnimatedGrowBase extends StatelessWidget {
   /// gc: 'G'rowAnimation'C'ontroller
   ///
   final Function(AnimationController gc)? controller;
+
+  final bool isGrowIn;
 
   final Curve curve;
 
@@ -46,6 +49,7 @@ abstract class AnimatedGrowBase extends StatelessWidget {
   Widget build(BuildContext context) {
     final AnimatedGrowData data = AnimatedGrowData(
       controller: controller,
+      isGrowIn: isGrowIn,
       curve: curve,
       duration: duration,
       reverseDuration: reverseDuration ?? duration,
@@ -54,6 +58,6 @@ abstract class AnimatedGrowBase extends StatelessWidget {
       child: child,
     );
 
-    return AnimatedGrowImpl(data: data,);
+    return AnimatedGrowImpl(data: data);
   }
 }
