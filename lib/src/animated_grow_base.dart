@@ -11,11 +11,12 @@ abstract class AnimatedGrowBase extends StatelessWidget {
     required this.isGrowIn,
     this.autoStart = true,
     this.delay = Duration.zero,
-    this.curve = Curves.easeInOut,
+    this.curve = Curves.linear,
     this.duration = const Duration(milliseconds: 850),
     this.reverseDuration,
     required this.direction,
     this.collapsed = true,
+    this.fixed = false,
     this.from = 0.0,
     required this.child,
   });
@@ -58,6 +59,14 @@ abstract class AnimatedGrowBase extends StatelessWidget {
   /// default value is true
   final bool collapsed;
 
+  /// child Widget fixed when animate grow state.
+  ///
+  /// if true value fixed child widget.
+  /// if false value non-fixed child widget.(translate user direction)
+  ///
+  /// default value is false
+  final bool fixed;
+
   /// measure detail begin position.
   ///
   final double from;
@@ -76,6 +85,7 @@ abstract class AnimatedGrowBase extends StatelessWidget {
       reverseDuration: reverseDuration ?? duration,
       direction: direction,
       isCollapsed: collapsed,
+      isFixed: fixed,
       from: from,
       child: child,
     );

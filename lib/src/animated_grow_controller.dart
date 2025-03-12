@@ -21,6 +21,7 @@ class GrowIn extends AnimatedGrowBase {
     super.reverseDuration,
     super.curve,
     super.collapsed,
+    super.fixed,
     super.from,
     required super.child,
   }) : super(isGrowIn: true);
@@ -37,6 +38,7 @@ class GrowOut extends AnimatedGrowBase {
     super.reverseDuration,
     super.curve,
     super.collapsed,
+    super.fixed,
     super.from,
     required super.child,
   }) : super(isGrowIn: false);

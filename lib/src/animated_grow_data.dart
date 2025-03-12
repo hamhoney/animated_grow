@@ -13,6 +13,7 @@ class AnimatedGrowData {
     required this.reverseDuration,
     required this.direction,
     required this.isCollapsed,
+    required this.isFixed,
     required this.from,
     required this.child,
   }) {
@@ -34,5 +35,6 @@ class AnimatedGrowData {
   Duration reverseDuration;
   GrowDirection direction;
   bool isCollapsed;
+  bool isFixed;
   final Widget child;
 }

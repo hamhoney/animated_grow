@@ -111,6 +111,7 @@ class _AnimatedGrowHorizontalState extends State<AnimatedGrowImpl>
       vsync: this,
       duration: widget.data.duration,
       reverseDuration: widget.data.reverseDuration,
+      animationBehavior: AnimationBehavior.preserve,
     );
 
     sizeAnimation = Tween<double>(
@@ -141,24 +142,40 @@ class _AnimatedGrowHorizontalState extends State<AnimatedGrowImpl>
           // isCollapsed: false, used Align widget.
           // isCollapsed: true, not used Align widget.
           if (widget.data.isCollapsed) {
-            return Align(
-              alignment: alignment,
-              widthFactor:
-                  widget.data.isHorizontal
-                      ? widget.data.isGrowIn
-                          ? controller.value
-                          : 1.0 - controller.value
-                      : null,
-              heightFactor:
-                  !widget.data.isHorizontal
-                      ? widget.data.isGrowIn
-                          ? controller.value
-                          : 1.0 - controller.value
-                      : null,
-              child: translatedWidget(child!),
+            return ClipRect(
+              clipper: widget.data.isFixed
+                  ? _GrowFixedClipper(sizeFactor: sizeAnimation.value, isHorizontal: widget.data.isHorizontal)
+                  : null,
+              child: Align(
+                alignment: alignment,
+                widthFactor:
+                    widget.data.isHorizontal
+                        ? widget.data.isGrowIn
+                            ? controller.value
+                            : 1.0 - controller.value
+                        : null,
+                heightFactor:
+                    !widget.data.isHorizontal
+                        ? widget.data.isGrowIn
+                            ? controller.value
+                            : 1.0 - controller.value
+                        : null,
+                child: widget.data.isFixed
+                    ? child!
+                    : translatedWidget(child!),
+              ),
             );
           } else {
-            return translatedWidget(child!);
+            return ClipRect(
+              // clipper: _LeftClipper(cutWidth: sizeAnimation.value),
+              clipper: widget.data.isFixed
+                  ? _GrowFixedClipper(sizeFactor: sizeAnimation.value, isHorizontal: widget.data.isHorizontal)
+                  : null,
+              // child: translatedWidget(child!)
+              child: widget.data.isFixed
+                  ? child!
+                  : translatedWidget(child!),
+            );
           }
         },
         child: SizedBox(key: childKey, child: widget.data.child),
@@ -182,3 +199,59 @@ class _AnimatedGrowHorizontalState extends State<AnimatedGrowImpl>
     );
   }
 }
+
+class _GrowFixedClipper extends CustomClipper<Rect> {
+  _GrowFixedClipper({
+    required this.sizeFactor,
+    required this.isHorizontal,
+  });
+
+  final double sizeFactor;
+  final bool isHorizontal;
+
+  @override
+  Rect getClip(Size size) {
+    print('sizeWidth:${size.width}, sizeHeight:${size.height}, sizeFactor:$sizeFactor');
+    if (isHorizontal) {
+      return Rect.fromLTWH(sizeFactor, 0.0, size.width, size.height);
+    } else {
+      // return Rect.fromLTRB(0.0, 0.0, size.width, size.height - sizeFactor);    // bottomToTop growIn
+      // return Rect.fromLTRB(0.0, 0.0, size.width, size.height + sizeFactor);    // topToBottom growIn
+      return Rect.fromLTRB(0.0, sizeFactor, size.width, size.height);    // topToBottom growOut
+      // return Rect.fromLTRB(0.0, 0.0, size.width, size.height+sizeFactor);    // bottomToTop groOut
+    }
+  }
+
+
+  @override
+  bool shouldReclip(covariant _GrowFixedClipper oldClipper) {
+    return oldClipper.sizeFactor != sizeFactor;
+  }
+
+  // Vertical direction
+  // GrowIn - BottomToTop
+  Rect vGrowInBottomToTop(Size size) => Rect.fromLTRB(0.0, 0.0, size.width, size.height - sizeFactor);
+  // GrowIn - TopToBottom
+  Rect vGrowInTopToBottom(Size size) => Rect.fromLTRB(0.0, 0.0, size.width, size.height + sizeFactor);
+  // GrowOut - BottomToTop
+  Rect vGrowOutBottomToTop(Size size) => Rect.fromLTRB(0.0, 0.0, size.width, size.height + sizeFactor);
+  // GrowOut - TopToBottom
+  Rect vGrowOutTopToBottom(Size size) => Rect.fromLTRB(0.0, sizeFactor, size.width, size.height);
+}
+
+// class _BottomClipper extends CustomClipper<Rect> {
+//   _BottomClipper({required this.cutHeight});
+//
+//   final double cutHeight;
+//
+//   @override
+//   Rect getClip(Size size) {
+//     // print('cutHeight:$cutHeight');
+//     return Rect.fromLTRB(0.0, 0.0, size.width, size.height + cutHeight);
+//   }
+//
+//   @override
+//   bool shouldReclip(covariant CustomClipper<Rect> oldClipper) {
+//     return true;
+//   }
+// }
