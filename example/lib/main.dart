@@ -107,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               TableDivider(),
               TablePaddingRow(
-                  name: Text('GrowOut : leftToRight\nfixed:true'),
+                  name: Text('GrowOut : leftToRight'),
                   sample: GrowOut(
                     controller: (growController) => controller5 = growController,
                     direction: GrowDirection.leftToRight,
@@ -116,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
               ),
               TablePaddingRow(
-                  name: Text('GrowOut : rightToLeft\nfixed:true'),
+                  name: Text('GrowOut : rightToLeft'),
                   sample: GrowOut(
                     controller: (growController) => controller6 = growController,
                     direction: GrowDirection.rightToLeft,
@@ -125,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
               ),
               TablePaddingRow(
-                  name: Text('GrowOut : topToBottom\nfixed:true'),
+                  name: Text('GrowOut : topToBottom'),
                   sample: GrowOut(
                     controller: (growController) => controller7 = growController,
                     direction: GrowDirection.topToBottom,
@@ -134,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
               ),
               TablePaddingRow(
-                  name: Text('GrowOut : bottomToTop\nfixed:true'),
+                  name: Text('GrowOut : bottomToTop'),
                   sample: GrowOut(
                     controller: (growController) => controller8 = growController,
                     direction: GrowDirection.bottomToTop,

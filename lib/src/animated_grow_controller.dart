@@ -4,12 +4,7 @@ import 'animated_grow_base.dart';
 /// Sunday, March 9. 2025
 ///
 /// AnimatedGrow' Recipe
-/// [onEnd]
-/// [AnimationController]
-/// [duration]
-/// [reverseDuration]
-/// [manualTrigger]
-/// [child]
+
 class GrowIn extends AnimatedGrowBase {
   const GrowIn({
     super.key,

@@ -49,10 +49,15 @@ abstract class AnimatedGrowBase extends StatelessWidget {
   /// default value is [Duration.zero]
   final Duration delay;
 
+  /// Curves animation
+  ///
+  /// https://api.flutter.dev/flutter/animation/Curves-class.html
   final Curve curve;
 
+  /// forward duration
   final Duration duration;
 
+  /// reverse duration
   final Duration? reverseDuration;
 
   /// The widget is collapsed but still taking up space in the layout.
@@ -77,6 +82,7 @@ abstract class AnimatedGrowBase extends StatelessWidget {
   ///
   final double from;
 
+  /// User child widget
   final Widget child;
 
   @override
