@@ -8,6 +8,33 @@ AnimatedGrow - Widgets can be easily moved.
 
 <br/>
 
+## Getting Started
+- [GrowIn](#growin)
+- [GrowOut](#growout)
+- [GrowController](#growcontroller)
+- [Collapsed](#collapsed-widget)
+- [Fixed](#fixed-child-widget)
+
+<br/>
+
+## Parameter
+| name            | required           | type                  | default                       |
+|-----------------|--------------------|-----------------------|-------------------------------|
+| onEnd           | :x:                | `VoidCallback`        | :x:                           |
+| controller      | :x:                | `AnimationController` | :x:                           |
+| direction       | :heavy_check_mark: | `GrowDirection`       | :x:                           |
+| autoStart       | :x:                | `bool`                | `true`                        |
+| delay           | :x:                | `Duration`            | `Duration.zero`               |
+| duration        | :x:                | `Duration`            | `Duration(milliseconds: 850)` |
+| reverseDuration | :x:                | `Duration`            | `duration`                    |
+| curve           | :x:                | `Curve`               | `Curves.linear`               |
+| collapsed       | :x:                | `bool`                | `true`                        |
+| fixed           | :x:                | `bool`                | `false`                       |
+| from            | :x:                | `double`              | `0.0`                         |
+| child           | :heavy_check_mark: | `Widget`              | :x:                           | 
+
+<br/>
+
 ### GrowIn
 ```dart
 GrowIn(

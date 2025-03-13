@@ -21,7 +21,7 @@ class _AnimatedGrowHorizontalState extends State<AnimatedGrowImpl>
   late final double axisAlignment = 0.0;
 
   late final AnimationController controller;
-  late Animation<double> sizeAnimation;
+  late Animation<double> growAnimation;
 
   // double? width = 0.0;
 
@@ -46,7 +46,7 @@ class _AnimatedGrowHorizontalState extends State<AnimatedGrowImpl>
               final int growDirect =
                   widget.data.direction == GrowDirection.leftToRight ? -1 : 1;
               // GrowIn
-              sizeAnimation = Tween<double>(
+              growAnimation = Tween<double>(
                 begin: growDirect * renderWidth + widget.data.from,
                 end: 0.0,
               ).animate(
@@ -56,7 +56,7 @@ class _AnimatedGrowHorizontalState extends State<AnimatedGrowImpl>
               final int growDirect =
                   widget.data.direction == GrowDirection.leftToRight ? 1 : -1;
               // GrowOut
-              sizeAnimation = Tween<double>(
+              growAnimation = Tween<double>(
                 begin: widget.data.from,
                 end: growDirect * renderWidth,
               ).animate(
@@ -69,7 +69,7 @@ class _AnimatedGrowHorizontalState extends State<AnimatedGrowImpl>
               // GrowIn
               final int growDirection =
                   widget.data.direction == GrowDirection.bottomToTop ? 1 : -1;
-              sizeAnimation = Tween<double>(
+              growAnimation = Tween<double>(
                 begin: growDirection * renderHeight + widget.data.from,
                 end: 0.0,
               ).animate(
@@ -79,7 +79,7 @@ class _AnimatedGrowHorizontalState extends State<AnimatedGrowImpl>
               // GrowOut
               final int growDirection =
                   widget.data.direction == GrowDirection.bottomToTop ? -1 : 1;
-              sizeAnimation = Tween<double>(
+              growAnimation = Tween<double>(
                 begin: widget.data.from,
                 end: growDirection * renderHeight,
               ).animate(
@@ -114,17 +114,12 @@ class _AnimatedGrowHorizontalState extends State<AnimatedGrowImpl>
       animationBehavior: AnimationBehavior.preserve,
     )..addStatusListener(animationStatusListener);
 
-    sizeAnimation = Tween<double>(
+    growAnimation = Tween<double>(
       begin: 0.0,
       end: 0.0,
     ).animate(CurvedAnimation(parent: controller, curve: widget.data.curve));
 
     widget.data.controller?.call(controller);
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
   }
 
   @override
@@ -139,7 +134,7 @@ class _AnimatedGrowHorizontalState extends State<AnimatedGrowImpl>
   Widget build(BuildContext context) {
     return ClipRect(
       child: AnimatedBuilder(
-        animation: sizeAnimation,
+        animation: growAnimation,
         builder: (context, child) {
           // isCollapsed: false, used Align widget.
           // isCollapsed: true, not used Align widget.
@@ -148,7 +143,7 @@ class _AnimatedGrowHorizontalState extends State<AnimatedGrowImpl>
               clipper:
                   widget.data.isFixed
                       ? _GrowFixedClipper(
-                        sizeFactor: sizeAnimation.value,
+                        sizeFactor: growAnimation.value,
                         isHorizontal: widget.data.isHorizontal,
                       )
                       : null,
@@ -171,11 +166,11 @@ class _AnimatedGrowHorizontalState extends State<AnimatedGrowImpl>
             );
           } else {
             return ClipRect(
-              // clipper: _LeftClipper(cutWidth: sizeAnimation.value),
+              // clipper: _LeftClipper(cutWidth: growAnimation.value),
               clipper:
                   widget.data.isFixed
                       ? _GrowFixedClipper(
-                        sizeFactor: sizeAnimation.value,
+                        sizeFactor: growAnimation.value,
                         isHorizontal: widget.data.isHorizontal,
                       )
                       : null,
@@ -196,10 +191,10 @@ class _AnimatedGrowHorizontalState extends State<AnimatedGrowImpl>
   }
 
   // horizontal
-  Offset get horizontalOffsetWidget => Offset(sizeAnimation.value, 0.0);
+  Offset get horizontalOffsetWidget => Offset(growAnimation.value, 0.0);
 
   // vertical
-  Offset get verticalOffsetWidget => Offset(0.0, sizeAnimation.value);
+  Offset get verticalOffsetWidget => Offset(0.0, growAnimation.value);
 
   Widget translatedWidget(Widget child) {
     return Transform.translate(
