@@ -7,6 +7,7 @@ import 'animated_grow_implement.dart';
 abstract class AnimatedGrowBase extends StatelessWidget {
   const AnimatedGrowBase({
     super.key,
+    this.onEnd,
     this.controller,
     required this.isGrowIn,
     this.autoStart = true,
@@ -21,9 +22,14 @@ abstract class AnimatedGrowBase extends StatelessWidget {
     required this.child,
   });
 
+  /// This only called at [AnimationStatus.completed]
+  ///
+  /// and not called [AnimationStatus.dismissed]
+  final void Function()? onEnd;
+
   /// gc: 'G'rowAnimation'C'ontroller
   ///
-  final Function(AnimationController gc)? controller;
+  final void Function(AnimationController gc)? controller;
 
   final bool isGrowIn;
 
@@ -76,6 +82,7 @@ abstract class AnimatedGrowBase extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AnimatedGrowData data = AnimatedGrowData(
+      onEnd: onEnd,
       controller: controller,
       isGrowIn: isGrowIn,
       isAutoStart: autoStart,

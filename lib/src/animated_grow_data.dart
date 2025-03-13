@@ -4,6 +4,7 @@ import 'animated_grow_direction.dart';
 
 class AnimatedGrowData {
   AnimatedGrowData({
+    required this.onEnd,
     required this.controller,
     required this.isGrowIn,
     required this.isAutoStart,
@@ -29,6 +30,7 @@ class AnimatedGrowData {
 
   double from;
 
+  void Function()? onEnd;
   final Function(AnimationController gc)? controller;
   Curve curve;
   Duration duration;

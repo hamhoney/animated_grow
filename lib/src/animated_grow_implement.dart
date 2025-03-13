@@ -112,7 +112,7 @@ class _AnimatedGrowHorizontalState extends State<AnimatedGrowImpl>
       duration: widget.data.duration,
       reverseDuration: widget.data.reverseDuration,
       animationBehavior: AnimationBehavior.preserve,
-    );
+    )..addStatusListener(animationStatusListener);
 
     sizeAnimation = Tween<double>(
       begin: 0.0,
@@ -129,7 +129,9 @@ class _AnimatedGrowHorizontalState extends State<AnimatedGrowImpl>
 
   @override
   void dispose() {
-    controller.dispose();
+    controller
+      ..removeStatusListener(animationStatusListener)
+      ..dispose();
     super.dispose();
   }
 
@@ -185,6 +187,12 @@ class _AnimatedGrowHorizontalState extends State<AnimatedGrowImpl>
         child: SizedBox(key: childKey, child: widget.data.child),
       ),
     );
+  }
+
+  void animationStatusListener(AnimationStatus status) {
+    if (status.isCompleted) {
+      widget.data.onEnd?.call();
+    }
   }
 
   // horizontal

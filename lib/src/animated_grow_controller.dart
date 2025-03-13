@@ -13,6 +13,7 @@ import 'animated_grow_base.dart';
 class GrowIn extends AnimatedGrowBase {
   const GrowIn({
     super.key,
+    super.onEnd,
     super.controller,
     required super.direction,
     super.autoStart,
@@ -30,6 +31,7 @@ class GrowIn extends AnimatedGrowBase {
 class GrowOut extends AnimatedGrowBase {
   const GrowOut({
     super.key,
+    super.onEnd,
     super.controller,
     required super.direction,
     super.autoStart,

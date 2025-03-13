@@ -46,26 +46,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: SafeArea(
         child: Center(
-          child: Column(
-            children: [
-              Text('test Context Area'),
-              GrowIn(
-                controller: (gc) => controller = gc,
-                direction: GrowDirection.bottomToTop,
-                delay: Duration(seconds:3),
-                collapsed: false,
-                duration: const Duration(seconds: 1),
-                reverseDuration: const Duration(milliseconds: 250),
-                from: -20,
-                child: ColorBox(color: Colors.red),
-              ),
-              GrowIn(
-                direction: GrowDirection.leftToRight,
-                collapsed: false,
-                child: ColorBox(color: Colors.yellow),
-              ),
-              Text('test Text2')
-            ],
+          child: GrowIn(
+            direction: GrowDirection.leftToRight,
+            child: ColorBox(color: Colors.red),
           ),
         ),
       ),
