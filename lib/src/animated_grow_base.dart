@@ -29,7 +29,7 @@ abstract class AnimatedGrowBase extends StatelessWidget {
 
   /// gc: 'G'rowAnimation'C'ontroller
   ///
-  final void Function(AnimationController gc)? controller;
+  final void Function(AnimationController growController)? controller;
 
   final bool isGrowIn;
 

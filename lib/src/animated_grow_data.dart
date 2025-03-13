@@ -31,7 +31,7 @@ class AnimatedGrowData {
   double from;
 
   void Function()? onEnd;
-  final Function(AnimationController gc)? controller;
+  final Function(AnimationController growController)? controller;
   Curve curve;
   Duration duration;
   Duration reverseDuration;
