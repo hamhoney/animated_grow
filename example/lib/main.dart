@@ -281,7 +281,7 @@ class TablePaddingRow extends TableRow {
     children: [
       Padding(
         padding: EdgeInsets.all(12.0),
-        child: name,
+        child: FittedBox(child: name),
       ),
       Padding(
         padding: EdgeInsets.zero,

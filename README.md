@@ -17,12 +17,12 @@ AnimatedGrow - Widgets can be easily moved.
 
 <br/>
 
-## Parameter
+## Parameters
 | name            | required           | type                  | default                       |
 |-----------------|--------------------|-----------------------|-------------------------------|
-| onEnd           | :x:                | `VoidCallback`        | :x:                           |
-| controller      | :x:                | `AnimationController` | :x:                           |
-| direction       | :heavy_check_mark: | `GrowDirection`       | :x:                           |
+| onEnd           | :x:                | `VoidCallback`        |                               |
+| controller      | :x:                | `AnimationController` |                               |
+| direction       | :heavy_check_mark: | `GrowDirection`       |                               |
 | autoStart       | :x:                | `bool`                | `true`                        |
 | delay           | :x:                | `Duration`            | `Duration.zero`               |
 | duration        | :x:                | `Duration`            | `Duration(milliseconds: 850)` |
@@ -31,7 +31,7 @@ AnimatedGrow - Widgets can be easily moved.
 | collapsed       | :x:                | `bool`                | `true`                        |
 | fixed           | :x:                | `bool`                | `false`                       |
 | from            | :x:                | `double`              | `0.0`                         |
-| child           | :heavy_check_mark: | `Widget`              | :x:                           | 
+| child           | :heavy_check_mark: | `Widget`              |                               | 
 
 <br/>
 
