@@ -61,6 +61,20 @@ GrowIn(
   child: ..
 )
 ```
+<br/>
+
+- if you want to control animation, define `false` into `autoStart` parameter.
+- Its default value is `true`.
+
+```dart
+GrowIn(
+  autoStart: false,
+  direction: GrowDirection.leftToRight,
+  child: ..
+)
+```
+
+<br/>
 
 ### Collapsed widget
 - true: collapsed widget(default)
